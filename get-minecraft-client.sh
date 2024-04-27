@@ -29,33 +29,35 @@ if [[ $VERSION_JSON == "null" ]]; then
 fi
 
 # find the proper java - 8 before 1.13, 11 after
-javas=$(update-alternatives --list java)
-java8=$(echo "$javas" | grep -m1 "\-8.*java$" || true)
+#javas=$(update-alternatives --list java)
+#java8=$(echo "$javas" | grep -m1 "\-8.*java$" || true)
 #java11=$(echo "$javas" | grep -m1 java-11 || true)
-java16=$(echo "$javas" | grep -m1 "\-16.*java$" || true)
-java17=$(echo "$javas" | grep -m1 "\-17.*java$" || true)
-version_slug=$(echo $MAINLINE_VERSION | cut -d . -f 2)
-if [[ $version_slug -le 16 ]]; then
-    if [[ -z $java8 ]]; then
-        echo "Need Java 8 to run" #$MAINLINE_VERSION
-        exit 1
-    fi
-    JAVA=$java8
-elif [[ $version_slug -le 17 ]]; then
-    if [[ -z $java16 ]]; then
-        echo "Java 16 is required for mainline versions 1.17+. Only found these java versions: $javas"
-        exit 1
-    else
-        JAVA=$java16
-    fi
-else
-    if [[ -z $java17 ]]; then
-        echo "Java 17 is required for mainline versions 1.18+. Only found these java versions: $javas"
-        exit 1
-    else
-        JAVA=$java17
-    fi
-fi
+#java16=$(echo "$javas" | grep -m1 "\-16.*java$" || true)
+#java17=$(echo "$javas" | grep -m1 "\-17.*java$" || true)
+#version_slug=$(echo $MAINLINE_VERSION | cut -d . -f 2)
+#if [[ $version_slug -le 16 ]]; then
+#    if [[ -z $java8 ]]; then
+#        echo "Need Java 8 to run" #$MAINLINE_VERSION
+#        exit 1
+#    fi
+#    JAVA=$java8
+#elif [[ $version_slug -le 17 ]]; then
+#    if [[ -z $java16 ]]; then
+#        echo "Java 16 is required for mainline versions 1.17+. Only found these java versions: $javas"
+#        exit 1
+#    else
+#        JAVA=$java16
+#    fi
+#else
+#    if [[ -z $java17 ]]; then
+#        echo "Java 17 is required for mainline versions 1.18+. Only found these java versions: $javas"
+#        exit 1
+#    else
+#        JAVA=$java17
+#    fi
+#fi
+
+JAVA=java
 
 VERSION_DETAILS=$(curl -s $VERSION_JSON)
 mkdir -p versions/$MAINLINE_VERSION
